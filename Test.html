@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Lucky Draw</title>
+	<style>
+	body{
+		margin:0;
+		background-image: url(teletubbies.jpg);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-color:#24a1d5;
+	}
+	
+	
+	#title{
+		margin-right: auto;
+		margin-left: auto;
+		margin-top: 1em;
+		margin-bottom: 3em;
+		width: 50%;
+		text-align: center;
+	}
+	
+	#title span{
+		font-size: 2em;
+		line-height: 2.5em;
+		font-weight: bold;
+		color: darkblue;
+		text-shadow: 0 0 3px #ffffff, 0 0 5px #ffffff;
+	}
+	
+	#wheel{
+		margin:auto;
+		width:100%;
+		text-align:center;
+	}
+	 
+	#wheelpin{
+		position: absolute;
+		top: 15em;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 5555;
+	}
+	 
+	 
+	#btnarea{
+		margin:auto;
+		width:100%;
+		text-align:center;
+	}
+	 
+	 
+	</style>
+ 
+</head>
+ 
+
+<body>
+	<div id="title" >
+		<span>熱烈慶賀敏大人牛一之喜</span>
+		<br/>
+		<span>天線國度幸運輪大抽獎</span>
+	</div>
+	<div id="wheelpin" style="
+ 
+  ">
+		<img id="wheelpin" src="wheelpin.png" style="">
+	</div>
+	<div id="wheel" >
+		<img id="wheelbody" src="wheel.png" />
+	</div>
+	<div id="btnarea" >
+		<button id="start">抽獎</button>
+		<br>
+		<button id="playsong">play</button>
+	</div>
+	<audio autoplay id="song">
+	  <source src="Teletubbies.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+</body>
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script>
+
+$.fn.animateRotate = function(angle, duration, easing, complete) {
+  var args = $.speed(duration, easing, complete);
+  var step = args.step;
+  return this.each(function(i, e) {
+    args.complete = $.proxy(args.complete, e);
+    args.step = function(now) {
+      $.style(e, 'transform', 'rotate(' + now + 'deg)');
+      if (step) return step.apply(e, arguments);
+    };
+
+    $({deg: 0}).animate({deg: angle}, args);
+  });
+};
+
+
+$( document ).ready(function() {
+
+
+	//rotate action
+	var angle = 0;
+	
+	
+	$('#wheel').on('click', function() {	
+		var randomvalue = Math.floor(Math.random() * 7)*52;
+		console.log(randomvalue);
+		//…jQuery.fn.animateRotate(angle, duration, easing, complete)
+		$('#wheelbody').animateRotate(3600+randomvalue, 8000, "swing",function () {
+		})
+	});
+	
+	
+	//playsong
+	
+	$('#playsong').on('click', function() {
+		var vid = document.getElementById("song");
+		vid.play();
+	});
+	
+});
+</script>
+
+</html>
